@@ -110,6 +110,25 @@ namespace CoreWepAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use(async (ctx, next) =>
+            {
+                await next();
+                if (ctx.Response.StatusCode == 204)
+                {
+                    ctx.Response.ContentLength = 0;
+                }
+            });
+
+          
+
+            //configurations to cosume the Web API from port : 4200 (Angualr App)
+            app.UseCors(options =>
+            options.WithOrigins(Configuration["ApplicationSetting:Client_URL"].ToString())
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+          
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
