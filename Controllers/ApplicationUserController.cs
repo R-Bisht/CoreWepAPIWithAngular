@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Model;
+using CoreWepAPI.Model;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.Extensions.Options;
+using CoreWepAPI.Infrastructure;
 
 namespace CoreWepAPI.Controllers
 {
@@ -18,9 +19,13 @@ namespace CoreWepAPI.Controllers
     [ApiController]
     public class ApplicationUserController : ControllerBase
     {
+
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _singInManager;
         private readonly ApplicationSetting _appSettings;
+
+
+
 
 
         public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<ApplicationSetting> appSettings)
@@ -35,6 +40,7 @@ namespace CoreWepAPI.Controllers
 
         [HttpPost]
         [Route("Register")]
+       
         public async Task<Object> PostApplicationUser(ApplicationUserModel model)
         {
             var applicationuser = new ApplicationUser()
@@ -62,7 +68,7 @@ namespace CoreWepAPI.Controllers
 
         [HttpPost]
         [Route("Login")]
-        //POST : /api/ApplicationUser/Login
+       // POST : /api/ApplicationUser/Login
 
         public async Task<IActionResult> Login(LoginModel model)
 

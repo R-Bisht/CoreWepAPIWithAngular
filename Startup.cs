@@ -9,13 +9,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using WebAPI.Model;
+using CoreWepAPI.Model;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer; //library for jwt auth
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using CoreWepAPI.Infrastructure;
+using CoreWepAPI.Repository;
+using System.Text.Json;
 
 namespace CoreWepAPI
 {
@@ -31,6 +34,27 @@ namespace CoreWepAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddControllers().AddNewtonsoftJson(option => 
+            //option.SerializerSettings.ReferenceLoopHandling.)
+
+            services.AddControllers().AddJsonOptions(option =>
+            {
+                option.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
+
+            //Set the json format
+
+            //services.AddControllers().AddJsonOptions(option =>
+            //{
+            //    option.JsonSerializerOptions.WriteIndented = true;
+            //});
+
+            //Get Data to Json 
+            services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(
+                opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddScoped<IDropDown, RDropDown>();
             services.AddControllers();
 
 

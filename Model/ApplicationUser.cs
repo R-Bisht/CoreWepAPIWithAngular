@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Model
+namespace CoreWepAPI.Model
 {
     //Just install Microsoft.EntityFrameworkCore.Tools package from nuget use migration, Microsoft.Extensions.Configuration.Abstractions
 
