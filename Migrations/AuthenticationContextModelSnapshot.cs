@@ -15,7 +15,7 @@ namespace CoreWepAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
+                .UseIdentityColumns(1, 1)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0-rc.1.20451.13");
 
@@ -24,7 +24,7 @@ namespace CoreWepAPI.Migrations
                     b.Property<int>("CTG")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<int>("CTG_CREATED_BY")
                         .HasColumnType("int");
@@ -45,7 +45,7 @@ namespace CoreWepAPI.Migrations
                     b.Property<int>("DST_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<string>("DST_CREATEDBY")
                         .HasColumnType("varchar(250)");
@@ -70,7 +70,7 @@ namespace CoreWepAPI.Migrations
                     b.Property<int>("STD_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<string>("STD_CREATEDBY")
                         .HasColumnType("varchar(250)");
@@ -92,7 +92,7 @@ namespace CoreWepAPI.Migrations
                     b.Property<int>("STC")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<int>("STC_CREATED_BY")
                         .HasColumnType("int");
@@ -141,7 +141,7 @@ namespace CoreWepAPI.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -236,7 +236,7 @@ namespace CoreWepAPI.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");

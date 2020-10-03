@@ -57,5 +57,37 @@ namespace CoreWepAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving Data");
             }
         }
+
+
+        [HttpGet]
+        [Route("CategorieName")]
+        public async Task<ActionResult> GetCategorieName()
+        {
+
+            try
+            {
+                return Ok(await _IRDropDown.GetCategories());
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving Data");
+            }
+        }
+
+
+        [HttpGet]
+        [Route("StudentClass")]
+        public async Task<ActionResult> GetStudentClass()
+        {
+            try
+            {
+                return Ok(await _IRDropDown.GetStudentClasses());
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving Data");
+
+            }
+        }
+        }
     }
-}

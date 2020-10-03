@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="DBContext\" />
+    <Folder Include="Image\" />
     <Folder Include="Publised\" />
   </ItemGroup>
 
