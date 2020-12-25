@@ -15,6 +15,12 @@ namespace CoreWepAPI.Model
     {
         [Column(TypeName ="nvarchar(200)")]
         public string FullName { get; set; }
+
+        [Column(TypeName = "int")]
+        public int StudentId { get; set; }
+
+        [Column(TypeName ="int")]
+        public int UserRoleID { get; set; }
     }
 }
 

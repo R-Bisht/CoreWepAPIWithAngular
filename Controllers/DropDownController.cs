@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CoreWepAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DropDownController : ControllerBase
@@ -27,7 +28,7 @@ namespace CoreWepAPI.Controllers
         [Route("State")]
         [HttpGet]
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        
         public async Task<ActionResult> GetStateName()
         {
             //var result= await _Context.States.ToListAsync();
@@ -45,7 +46,7 @@ namespace CoreWepAPI.Controllers
 
         [Route("District/{StateId}")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+      //  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> GetDistrictName(int StateId)
         {
             try
@@ -89,5 +90,21 @@ namespace CoreWepAPI.Controllers
 
             }
         }
+
+        [HttpGet]
+        [Route("ApplicationRole")]
+        public async Task<ActionResult> GetApplicationRole()
+        {
+            try
+            {
+                return Ok(await _IRDropDown.GetApplicationRoles());
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving Data");
+
+            }
         }
+
+    }
     }

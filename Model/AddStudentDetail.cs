@@ -29,14 +29,14 @@ namespace CoreWepAPI.Model
         public string ASD_MotherName { get; set; }
 
         [Column(TypeName = "bigint")]
-        public int ASD_PhoneNo { get; set; }
+        public long ASD_PhoneNo { get; set; }
 
-        [Column(TypeName ="varchar(250)")]
+        [Column(TypeName = "varchar(250)")]
         public string ASD_EmailId { get; set; }
 
-        [Column(TypeName ="bigint")]
+        [Column(TypeName = "bigint")]
         [Required]
-        public int ASD_AadharNo { get; set; }
+        public long ASD_AadharNo { get; set; }
 
         [Column(TypeName = "datetime")]
         public DateTime ASD_DOB { get; set; }
@@ -79,6 +79,12 @@ namespace CoreWepAPI.Model
 
         [Column(TypeName = "varchar(250)")]
         public string ASD_SignatureName { get; set; }
+
+        [Column(TypeName = "int")]
+        public int ASD_Application_Role { get; set; }
+
+        [Column(TypeName = "varchar(200)")]
+        public string ASD_UserName { get; set; }
 
         [Column(TypeName = "int")]
         public int ASD_CreateBy { get; set; }

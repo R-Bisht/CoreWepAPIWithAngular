@@ -40,31 +40,31 @@ namespace CoreWepAPI.Controllers
 
         [HttpPost]
         [Route("Register")]
-       
-        public async Task<Object> PostApplicationUser(ApplicationUserModel model)
-        {
-            var applicationuser = new ApplicationUser()
-            {
-                UserName = model.UserName,
-                Email = model.Email,
 
-                FullName = model.FullName
+        //public async Task<Object> PostApplicationUser(ApplicationUserModel model)
+        //{
+        //    var applicationuser = new ApplicationUser()
+        //    {
+        //        UserName = model.UserName,
+        //        Email = model.Email,
+
+        //        FullName = model.FullName
 
 
 
-            };
-            try
-            {
-                var result = await
+        //    };
+        //    try
+        //    {
+        //        var result = await
 
-                    _userManager.CreateAsync(applicationuser, model.Password);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //            _userManager.CreateAsync(applicationuser, model.Password);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         [HttpPost]
         [Route("Login")]

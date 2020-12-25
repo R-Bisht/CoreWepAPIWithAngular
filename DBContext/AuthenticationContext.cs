@@ -24,5 +24,10 @@ namespace CoreWepAPI.Model
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<StudentClass> studentClasses { get; set; }
+
+        public DbSet<AddStudentDetail> addStudentDetails { get; set; }
+        public DbSet<ApplicationRole> applicationRoles { get; set; }
+
+        
     }
 }

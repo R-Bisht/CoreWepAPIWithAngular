@@ -41,6 +41,12 @@ namespace CoreWepAPI.Repository
             return await _Context.studentClasses.ToListAsync();
         }
 
+        public async Task<IEnumerable<ApplicationRole>> GetApplicationRoles()
+        {
+            return await _Context.applicationRoles.ToListAsync();
+        }
         
+
+
     }
 }

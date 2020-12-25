@@ -11,6 +11,7 @@ using CoreWepAPI.Model;
 
 namespace CoreWepAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
@@ -23,7 +24,7 @@ namespace CoreWepAPI.Controllers
 
         [HttpGet]
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        
 
 
         public async Task<Object> GetUserProfile()

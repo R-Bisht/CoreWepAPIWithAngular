@@ -18,6 +18,9 @@ namespace CoreWepAPI.Infrastructure
 
         Task<IEnumerable<StudentClass>> GetStudentClasses();
 
+
+        Task<IEnumerable<ApplicationRole>> GetApplicationRoles();
+
       //  District GetById(int id);
 
     }

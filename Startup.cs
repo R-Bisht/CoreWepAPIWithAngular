@@ -19,6 +19,7 @@ using System.Text;
 using CoreWepAPI.Infrastructure;
 using CoreWepAPI.Repository;
 using System.Text.Json;
+using CoreWepAPI.RSA;
 
 namespace CoreWepAPI
 {
@@ -34,9 +35,21 @@ namespace CoreWepAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //It's use for store session data
+            services.AddDistributedMemoryCache();
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(90);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            // services.AddSession();
+            //services.AddMemoryCache();
             //services.AddControllers().AddNewtonsoftJson(option => 
             //option.SerializerSettings.ReferenceLoopHandling.)
+            
 
             services.AddControllers().AddJsonOptions(option =>
             {
@@ -53,8 +66,9 @@ namespace CoreWepAPI
             //Get Data to Json 
             services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(
                 opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
+            services.AddScoped<IRsaHelper, RsaHelper>();
             services.AddScoped<IDropDown, RDropDown>();
+            services.AddScoped<IAddStudentDetail, RAddStudentDetail>();
             services.AddControllers();
 
 
@@ -143,7 +157,7 @@ namespace CoreWepAPI
                 }
             });
 
-          
+           // app.UseSession();
 
             //configurations to cosume the Web API from port : 4200 (Angualr App)
             app.UseCors(options =>
@@ -160,7 +174,14 @@ namespace CoreWepAPI
 
             app.UseRouting();
 
+            app.UseSession();
+
+            // after Login anthor page post data
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+           
 
             app.UseEndpoints(endpoints =>
             {

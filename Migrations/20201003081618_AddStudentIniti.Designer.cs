@@ -4,14 +4,16 @@ using CoreWepAPI.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoreWepAPI.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20201003081618_AddStudentIniti")]
+    partial class AddStudentIniti
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,9 +30,6 @@ namespace CoreWepAPI.Migrations
 
                     b.Property<long>("ASD_AadharNo")
                         .HasColumnType("bigint");
-
-                    b.Property<int>("ASD_Application_Role")
-                        .HasColumnType("int");
 
                     b.Property<int>("ASD_Category")
                         .HasColumnType("int");
@@ -99,36 +98,12 @@ namespace CoreWepAPI.Migrations
                     b.Property<string>("ASD_TemporaryAddress")
                         .HasColumnType("varchar(250)");
 
-                    b.Property<string>("ASD_UserName")
-                        .HasColumnType("varchar(200)");
-
                     b.Property<int>("ASD_gender")
                         .HasColumnType("int");
 
                     b.HasKey("ASD_Id");
 
                     b.ToTable("addStudentDetails");
-                });
-
-            modelBuilder.Entity("CoreWepAPI.Model.ApplicationRole", b =>
-                {
-                    b.Property<int>("AR_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("AR_ApplicationDiscriminator")
-                        .HasColumnType("varchar(250)");
-
-                    b.Property<int>("AR_CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("AR_CreatedDate")
-                        .HasColumnType("DateTime");
-
-                    b.HasKey("AR_Id");
-
-                    b.ToTable("applicationRoles");
                 });
 
             modelBuilder.Entity("CoreWepAPI.Model.Category", b =>
@@ -429,12 +404,6 @@ namespace CoreWepAPI.Migrations
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserRoleID")
-                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
