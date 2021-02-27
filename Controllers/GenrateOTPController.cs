@@ -23,6 +23,7 @@ using Microsoft.IdentityModel.Protocols;
 using System.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using CoreWepAPI.RSA;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoreWepAPI.Controllers
 {
@@ -37,15 +38,21 @@ namespace CoreWepAPI.Controllers
 
         private readonly SMSApplication _SMSSettings;
 
+        private readonly ApplicationUserModel _ApplicationUser;
+
         private readonly AuthenticationContext _Context;
 
-      //  public const string SessionKeyName="";
-        public GenrateOTPController(IOptions<SMSApplication> SMSSettings, AuthenticationContext Context, IRsaHelper rsaHelper)
-        {
+        private UserManager<ApplicationUser> _userManager;
 
+        //  public const string SessionKeyName="";
+        public  GenrateOTPController(UserManager<ApplicationUser> userManager,IOptions<SMSApplication> SMSSettings, AuthenticationContext Context, IRsaHelper rsaHelper)
+        {
+            _userManager = userManager;
             _rsaHelper = rsaHelper;
 
             _SMSSettings = SMSSettings.Value;
+
+//            _ApplicationUser = ApplicationUser.Value;
 
             _Context = Context;
         }
@@ -56,9 +63,21 @@ namespace CoreWepAPI.Controllers
         [HttpPost]
 
 
-        public ActionResult GenrateOTP(SMSApplication SMSModel)
+        public  ActionResult GenrateOTP(SMSApplication SMSModel)
         {
+
+            var Number = _Context.addStudentDetails.Where(a => a.ASD_PhoneNo == SMSModel.ToNumber).ToList();
             
+            if (Number.Count == 0)
+            {
+                return Ok("0");
+
+            }
+
+           
+
+
+
 
             string num = "0123456789";
             int len = num.Length;
@@ -79,12 +98,7 @@ namespace CoreWepAPI.Controllers
 
             }
 
-             var Number= _Context.addStudentDetails.Where(a => a.ASD_PhoneNo == SMSModel.ToNumber).ToList();
-            if(Number.Count==0)
-            {
-                return Ok("0");
-
-            }
+           
             var accountsid = _SMSSettings.UserName;//"ACdb6c8eb26449187c76afe22fc845631d"; //ConfigurationManager.AppSettings["UserName"];
             var authtoken = _SMSSettings.Password; //"616af29b7ea8a863ada5cf1c0cf8fb02"; //_SMSSettings.Password; 
 
@@ -123,18 +137,36 @@ namespace CoreWepAPI.Controllers
         [Route("VerifyOTP")]
         [HttpPost]
 
-        public ActionResult VerifyOTP(SMSApplication SMSModel)
+        public async Task<Object>  VerifyOTP(SMSApplication SMSModel)
         {
+            var UserRegister = _Context.addStudentDetails.Where(a => a.ASD_UserName == SMSModel.UserRegisterNo).ToList();
+              if (UserRegister.Count == 0)
+            {
+                return Ok("0");
 
-          //  string OTPNo ;
+            }
+
+
+            //  string OTPNo ;
             //if (HttpContext.Session.GetString("Key") !=null)
             //{
-                // OTPNo = HttpContext.Session.GetString("Key");
-                var DrycptOTP  = _rsaHelper.Decrypt(SMSModel.SendOTP);
+            // OTPNo = HttpContext.Session.GetString("Key");
+            var DrycptOTP  = _rsaHelper.Decrypt(SMSModel.SendOTP);
 
             if (SMSModel.OTPNumber == DrycptOTP)
                 {
-                    return Ok("1");
+                //update query
+
+                //  ApplicationUser UpdateData = _Context.ApplicationUsers.SingleOrDefault(x => x.PhoneNumber == SMSModel.UserRegisterNo);
+                var UpdateData = await _userManager.FindByNameAsync(SMSModel.UserRegisterNo);
+                var newpassword = _userManager.PasswordHasher.HashPassword(UpdateData, SMSModel.UserPassword);
+                //  var ResetPassword= _userManager.ResetPasswordAsync(SMSModel.UserRegisterNo,SMSModel.Password);
+                UpdateData.PasswordHash = newpassword;
+                IdentityResult result = await _userManager.UpdateAsync(UpdateData);
+                //_Context.SaveChanges();
+
+
+                return Ok("1");
                 }
           //  }
           else

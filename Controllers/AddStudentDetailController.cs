@@ -15,7 +15,6 @@ using CoreWepAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-
 namespace CoreWepAPI.Controllers
 {
    
@@ -49,7 +48,8 @@ namespace CoreWepAPI.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Save Data");
+                return Ok("0");
+                //return StatusCode(StatusCodes.Status500InternalServerError, "Error in Save Data");
             }
            
         }
@@ -58,10 +58,10 @@ namespace CoreWepAPI.Controllers
         [HttpGet]
         // public async Task<ActionResult> GetStudentList()
 
-        public IQueryable<Object> GetStudentList() 
+        public IQueryable<Object> GetStudentList(int IdentityUserRole,int IdentityUserId) 
         {
             
-                    return  _IAddStudentDetail.GetStudentList();
+                    return  _IAddStudentDetail.GetStudentList(IdentityUserRole,  IdentityUserId);
            
 
         }

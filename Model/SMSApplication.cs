@@ -10,7 +10,7 @@ namespace CoreWepAPI.Model
     {
         public string UserName { get; set; } = "ACdb6c8eb26449187c76afe22fc845631d";
 
-        public string Password { get; set; } = "616af29b7ea8a863ada5cf1c0cf8fb02";
+        public string Password { get; set; } = "161f519120053f16d9806a7b287b28ec"; //"616af29b7ea8a863ada5cf1c0cf8fb02";
 
         public string FromNumber { get; set; } = "+13342319024";
 
@@ -18,7 +18,13 @@ namespace CoreWepAPI.Model
         [TempData]
         public string OTPNumber { get; set; } = "0";
 
-        public string SendOTP { get; set; } 
+        public string SendOTP { get; set; } = "0";
+
+        public string UserRegisterNo { get; set; }
+
+        public string UserPassword { get; set; }
+
+
 
     }
 }

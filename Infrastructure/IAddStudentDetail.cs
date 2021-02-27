@@ -12,6 +12,6 @@ namespace CoreWepAPI.Infrastructure
 
         // Task<IEnumerable<AddStudentDetail>> GetStudentList();
 
-        IQueryable<Object> GetStudentList();
+        IQueryable<Object> GetStudentList(int IdentityUserRole, int IdentityUserId);
     }
 }

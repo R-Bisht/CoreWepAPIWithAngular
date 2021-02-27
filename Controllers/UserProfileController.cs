@@ -35,7 +35,9 @@ namespace CoreWepAPI.Controllers
             {
                 user.FullName,
                 user.Email,
-                user.UserName
+                user.UserName,
+                user.UserRoleID,
+                user.StudentId
             };
 
         }

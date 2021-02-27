@@ -92,7 +92,10 @@ namespace CoreWepAPI.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                return Ok(new { token });
+                var App = await _userManager.FindByIdAsync(user.Id.ToString());
+                var UserRole =App.UserRoleID; 
+                var UserId = App.StudentId;
+                return Ok(new { token, UserRole, UserId });
 
 
 
