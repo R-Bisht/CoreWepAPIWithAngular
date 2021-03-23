@@ -31,9 +31,27 @@ namespace CoreWepAPI.Controllers
         }
 
 
+        [Route("UpdateStudent")]
+        [HttpPost]
 
 
-        
+        public async Task<ActionResult<AddStudentDetail>> UpdateStudentDetail(AddStudentDetail model)
+        {
+            try
+            {
+                var result = await _IAddStudentDetail.UpdateStudentDetail(model);
+                return Ok(result.ASD_Id);
+
+            }
+            catch
+            {
+                return Ok("0");
+                //return StatusCode(StatusCodes.Status500InternalServerError, "Error in Save Data");
+            }
+
+        }
+
+
         [Route("SaveStudentDetail")]
         [HttpPost]
        
@@ -64,6 +82,45 @@ namespace CoreWepAPI.Controllers
                     return  _IAddStudentDetail.GetStudentList(IdentityUserRole,  IdentityUserId);
            
 
+        }
+        [Route("StudentGetDataByID/{studentid}")]
+        [HttpGet]
+        public IQueryable<Object> StudentGetDataByID(int studentid)
+        {
+
+            return _IAddStudentDetail.GetStudentDataById(studentid);
+
+
+        }
+
+
+        [Route("DeleteStudent/{StudentId}")]
+        [HttpGet]
+        //  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<AddStudentDetail>> DeleteStudent(int StudentId)
+        {
+            try
+            {
+
+            var DeleteStudentData=  await _IAddStudentDetail.DeleteStudentByID(StudentId);
+
+                if(DeleteStudentData==null)
+                {
+                    return NotFound(0);
+                }
+                else
+                {
+                    await _IAddStudentDetail.DeleteStudentByID(StudentId);
+                    return Ok(12);
+
+                }
+               
+                //return Ok("1");
+            }
+            catch
+            {
+               return StatusCode(StatusCodes.Status500InternalServerError, "Error in Delete Data");
+            }
         }
     }
 }

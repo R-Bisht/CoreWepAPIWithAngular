@@ -28,6 +28,10 @@ namespace CoreWepAPI.Model
         public DbSet<AddStudentDetail> addStudentDetails { get; set; }
         public DbSet<ApplicationRole> applicationRoles { get; set; }
 
+        public DbSet<AddTeacherDetail> addTeacherDetails { get; set; }
+
+        public DbSet<AddSubject> addSubjects { get; set; }
+
         
     }
 }

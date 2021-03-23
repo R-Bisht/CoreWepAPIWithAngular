@@ -10,8 +10,14 @@ namespace CoreWepAPI.Infrastructure
     {
         Task<AddStudentDetail> AddStudentDetail(AddStudentDetail Student);
 
-        // Task<IEnumerable<AddStudentDetail>> GetStudentList();
+        Task<AddStudentDetail> UpdateStudentDetail(AddStudentDetail Student);
+
+        // Task<IEnumerable<AddStudentDetail>> GetStudentList();GetStudentDataById
 
         IQueryable<Object> GetStudentList(int IdentityUserRole, int IdentityUserId);
+
+        IQueryable<Object> GetStudentDataById(int StudentId);
+
+        Task<AddStudentDetail> DeleteStudentByID(int StudentId);
     }
 }
